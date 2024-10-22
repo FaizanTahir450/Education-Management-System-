@@ -1,0 +1,154 @@
+Statement 1  Create table Admin ( 
+    ad_id number not null constraint admin_pk primary key, 
+    ad_password varchar2(20) not null, 
+    ad_name varchar2(45) not null 
+)
+Table created.
+Statement 2
+create table Subjects ( 
+    subj_id number not null, 
+    subj_name varchar2(30) not null, 
+    subj_unit varchar2(8) not null, 
+    subj_code varchar2(8) not null, 
+    ad_id number not null, 
+    primary key (subj_id), 
+    foreign key(ad_id)references Admin(ad_id) 
+    ) 
+Table created.
+Statement 3
+create table Students ( 
+    std_id number not null, 
+    std_name varchar2(50) not null, 
+    std_dob varchar2(25) not null, 
+    std_pwd varchar2(50) not null, 
+    std_fathername varchar2(30) not null, 
+    std_nationality varchar2(30) not null, 
+    std_city varchar2(30) not null, 
+    std_phoneno varchar2(15) not null, 
+    std_email varchar2(30) not null, 
+    ad_id not null, 
+primary key(std_id), 
+foreign key(ad_id) references ADMIN(ad_id) 
+    )
+Table created.
+Statement 4
+create table Class (  
+    class_id number not null,   
+    class_roomno varchar2(4) not null,  
+    class_section varchar2(3) not null,  
+    class_totalstd number not null,  
+    ad_id number not null,  
+    primary key(class_id),  
+    foreign key(ad_id) references Admin(ad_id) 
+    )
+Table created.
+Statement 5
+CREATE table Teachers 
+( 
+    teacher_id Number not null, 
+    teacher_name varchar(30) not null, 
+    teacher_phoneno varchar(20)not null, 
+    teacher_pwd varchar(40) not null, 
+    ad_id number not null, 
+    primary key (teacher_id), 
+    foreign key(ad_id) references Admin(ad_id) 
+)
+Table created.
+Statement 6
+CREATE TABLE Results 
+ 
+( 
+total_marks NUMBER NOT NULL, 
+obt_marks NUMBER NOT NULL, 
+percentage NUMBER NOT NULL, 
+grade VARCHAR2(3) NOT NULL, 
+result_id NUMBER NOT NULL, 
+teacher_id NUMBER NOT NULL, 
+PRIMARY KEY (result_id), 
+FOREIGN KEY (teacher_id) REFERENCES Teachers(teacher_id) 
+)
+Table created.
+Statement 7
+create table test( 
+TEST_NO number not null, 
+attempted_ques VARCHAR2(3) NOT NULL, 
+total_ques VARCHAR(5) NOT NULL, 
+total_marks NUMBER NOT NULL, 
+obt_marks NUMBER NOT NULL, 
+std_id NUMBER NOT NULL, 
+teacher_id NUMBER NOT NULL, 
+PRIMARY KEY (TEST_NO), 
+FOREIGN KEY (std_id) REFERENCES Students(std_id), 
+FOREIGN KEY (teacher_id) REFERENCES Teachers(teacher_id) 
+)
+Table created.
+Statement 8
+CREATE TABLE Fee 
+( 
+fee_id NUMBER NOT NULL, 
+fee_receipt VARCHAR2(15) NOT NULL, 
+fee_amount NUMBER NOT NULL, 
+std_id NUMBER NOT NULL, 
+PRIMARY KEY (fee_id), 
+FOREIGN KEY (std_id) REFERENCES Students(std_id) 
+)
+Table created.
+Statement 9
+CREATE TABLE Notice 
+( 
+issue_date date NOT NULL, 
+notice_id NUMBER NOT NULL, 
+notice_subj VARCHAR2(100) NOT NULL, 
+ad_id NUMBER NOT NULL, 
+PRIMARY KEY (notice_id), 
+FOREIGN KEY (ad_id) REFERENCES Admin(ad_id) 
+)
+Table created.
+Statement 10
+CREATE TABLE Admission_Form 
+ 
+( 
+ 
+form_id NUMBER NOT NULL, 
+name VARCHAR(40) NOT NULL, 
+cnic_num VARCHAR2(15) NOT NULL, 
+religion VARCHAR2(20) NOT NULL, 
+gender VARCHAR2(12) NOT NULL, 
+std_id NUMBER NOT NULL, 
+PRIMARY KEY (form_id), 
+FOREIGN KEY (std_id) REFERENCES Students(std_id) 
+)
+Table created.
+Statement 11
+CREATE TABLE Attendance 
+( 
+classes_present NUMBER NOT NULL, 
+classes_abs NUMBER NOT NULL, 
+classes_total NUMBER NOT NULL, 
+attendance_id NUMBER NOT NULL, 
+teacher_id NUMBER NOT NULL, 
+PRIMARY KEY (attendance_id), 
+FOREIGN KEY (teacher_id) REFERENCES Teachers(teacher_id) 
+)
+Table created.
+Statement 12
+CREATE TABLE Teacher_attendance ( 
+    teachattendance_id NUMBER NOT NULL, 
+    teachattendance_date DATE NOT NULL, 
+    teachattendance_status VARCHAR2(15) NOT NULL, 
+    teacher_id number not null, 
+    PRIMARY KEY (teachattendance_id), 
+    FOREIGN KEY (teacher_id) REFERENCES teachers(teacher_id) 
+)
+Table created.
+Statement 13
+CREATE TABLE library ( 
+    book_id number Not null, 
+    title VARCHAR(255) NOT NULL, 
+    author VARCHAR(255) NOT NULL, 
+    published_year date NOT NULL, 
+    genre VARCHAR(100), 
+    ad_id number NOT NULL, 
+   primary key(book_id), 
+    foreign key(ad_id)REFERENCES Admin(ad_id) 
+)
